@@ -5,21 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orb Counter</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #FFFFFF;
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #FFFFFF;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 20px; /* This is added so that there's a bit of space at the top of the page */
+}
+
 
         .container {
-            margin-top: -40vh;
-            text-align: center;
-        }
+    margin-top: 120px;  /* Adjust this value accordingly if the content in .header-label changes or if there are changes in the styling that would affect its height */
+    text-align: center;
+}
+
 
         .input-field, .output-field {
             margin: 10px;
@@ -57,14 +61,12 @@
 
         .header-label {
     text-align: center;
-    font-size: inherit; /* Nimmt die Schriftgröße des umgebenden Elements an */
-    font-weight: normal; /* Setzt den Schriftschnitt auf normal */
-    padding: 10px 0; 
-    position: absolute; 
-    top: 0;
-    left: 0;
+    font-size: inherit;
+    font-weight: normal;
+    padding: 10px 0;
     width: 100%;
 }
+
 
 
     </style>
@@ -75,7 +77,7 @@
         For the Blue Orbs be aware that if it is not an Integer it could be either the lower or the upper Integer number (e.g. 27.4 could be 27 or 28).
         <br><br>
         Skill Points have a natural cap of 100.<br>
-        Blue Points have a cap of 60 for 1 Protection Skill (120 for 2 Protection Skills).
+        Blue Points have a cap of 60 (120).
     </div>
     
 <div class="container">

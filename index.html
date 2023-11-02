@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orb Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #FFFFFF;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            margin-top: -40vh;
+            text-align: center;
+        }
+
+        .input-field, .output-field {
+            margin: 10px;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .last-input {
+    margin-bottom: 50px; /* Oder welchen Abstand Sie bevorzugen */
+}
+
+
+        .output {
+            background-color: #444;
+            padding: 5px 10px;
+            border: 1px solid #555;
+            display: inline-block;
+            width: 60px;
+            text-align: center;
+        }
+
+        label {
+            display: inline-block; /* Diese Änderung stellt sicher, dass das Label neben dem Eingabefeld angezeigt wird */
+            margin-right: 10px;
+            vertical-align: middle; /* Stellt sicher, dass das Label vertikal mit dem Eingabefeld zentriert ist */
+            width: 180px;
+        }
+
+        .header-label {
+    text-align: center;
+    font-size: inherit; /* Nimmt die Schriftgröße des umgebenden Elements an */
+    font-weight: normal; /* Setzt den Schriftschnitt auf normal */
+    padding: 10px 0; 
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="header-label">
+        Created by @amarillodorado (Aurora). The Skill Point calculation should be to 100% accurate. <br>
+        For the Blue Orbs be aware that if it is not an Integer it could be either the lower or the upper Integer number (e.g. 27.4 could be 27 or 28).
+    </div>
+    
+<div class="container">
+    <div class="input-field">
+        <label for="green-orbs">Amount of Green Orbs: </label>
+        <input type="number" id="green-orbs" min="0" max="6" value = "0">
+    </div>
+    <div class="input-field">
+        <label for="blue-orbs">Amount of Blue Orbs: </label>
+        <input type="number" id="blue-orbs" min="0" max="6" value ="0">
+    </div>
+    <div class="input-field">
+        <label for="orange-orbs">Amount of Orange Orbs: </label>
+        <input type="number" id="orange-orbs" min="0" max="6" value = "0">
+    </div>
+
+    <div class="input-field last-input">
+    </div>
+
+    <div class="output-field">
+        <label>Output Green Orbs: </label>
+        <span class="output" id="output-green">0</span>
+    </div>
+    <div class="output-field">
+        <label>Output Blue Orbs: </label>
+        <span class="output" id="output-blue">0</span>
+    </div>
+</div>
+
+<script>
+
+    function claculateSkillPoints(green, blue, orange){
+        let amountOrbs = green+blue+orange;
+        if(amountOrbs > 6){
+            return "What are you doing!!!";
+        }
+
+        let SkillPointsGreenOrbsTable = [0, 6,6.5,20/3,7.25,9,12];
+        let SkillPointsBlueOrangeOrbsTable = [0, 4,4.5,14/3,5,6,8];
+        let SkillPointsCalc = green * SkillPointsGreenOrbsTable[amountOrbs] + (orange+blue) * SkillPointsBlueOrangeOrbsTable[amountOrbs];
+        if(SkillPointsCalc == 26.75){
+            return 27;
+        }
+        if(SkillPointsCalc == 24.5){
+            return 24;
+        }
+        if(SkillPointsCalc == 22.25){
+            return 22;
+        }
+        return SkillPointsCalc;
+    }
+
+    function calculateProtectionGauge(green, blue,orange){
+        let amountOrbs = green+blue+orange;
+        if(amountOrbs > 6){
+            return "What are you doing!!!";
+        }
+        let BlueGaugeGreenOrbsTabel = [0, 3, 3.5, 10/3, 3.75,4.6,6];
+        let BlueGaugeBlueOrbsTabel = [0, 6,6.5,20/3,7.25,9,12];
+        let BlueGaugeOrangeOrbsTabel = [0, 2,2.5,7/3,2.5,3,4];
+        let BlueGaugeCalc = green * BlueGaugeGreenOrbsTabel[amountOrbs] + blue * BlueGaugeBlueOrbsTabel[amountOrbs] + orange * BlueGaugeOrangeOrbsTabel[amountOrbs];
+        return parseFloat(BlueGaugeCalc.toFixed(2));
+    }
+
+    document.querySelectorAll('.input-field input').forEach(input => {
+        input.addEventListener('input', function () {
+            let green = 0, blue = 0, orange = 0;
+            green = Number(document.getElementById('green-orbs').value);
+            blue = Number(document.getElementById('blue-orbs').value);
+            orange = Number(document.getElementById('orange-orbs').value);
+
+            let totalOrbs = green + blue + orange;
+        
+        if (totalOrbs > 6) {
+            // Wenn die Gesamtanzahl über 6 liegt, setze den aktuellen Wert zurück
+            input.value = input.value - (totalOrbs - 6);
+            
+            // Aktualisiere die Werte nach der Änderung
+            green = Number(document.getElementById('green-orbs').value);
+            blue = Number(document.getElementById('blue-orbs').value);
+            orange = Number(document.getElementById('orange-orbs').value);
+        }
+
+            document.getElementById('output-green').innerText = claculateSkillPoints(green, blue, orange);
+            document.getElementById('output-blue').innerText = calculateProtectionGauge(green, blue, orange);
+        });
+    });
+</script>
+</body>
+</html>

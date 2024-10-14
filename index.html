@@ -107,9 +107,50 @@
             background-color: #218838;
         }
 
-        #ultimate-souls-group {
-            display: none;
+        /* Box für Ultimate Souls */
+        .ultimate-souls-section {
+            padding: 5px 10px; /* Kleinere Innenabstände (oben/unten 5px, links/rechts 10px) */
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 20px;  /* Abstand nach oben */
+            margin-bottom: 20px;  /* Abstand nach unten */
         }
+
+        /* Input Group Anpassung für Ultimate Souls */
+        .ultimate-souls-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Vertikale Ausrichtung, damit der Text und das Input-Feld auf gleicher Höhe sind */
+            margin-bottom: 0; /* Keine zusätzliche Lücke unter der Gruppe */
+        }
+
+        /* Label Styling */
+        .ultimate-label {
+            font-size: 14px;
+            color: #555;
+            font-weight: bold;
+            margin-right: 10px; /* Etwas Abstand zum Eingabefeld */
+        }
+
+        /* Input Field Styling */
+        .ultimate-input {
+            width: 60px;
+            padding: 5px; /* Konsistentes Padding */
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Vermeidung von Überlappungen bei ausgefahrenen Boxen */
+        .section {
+            margin-bottom: 20px; /* Einheitlicher Abstand für alle Abschnitte */
+        }
+
+        .content {
+            margin-bottom: 20px; /* Abstand zwischen ausgefahrenem Inhalt und anderen Boxen */
+        }
+        
     </style>
 </head>
 <body>
@@ -177,12 +218,15 @@
         </div>
     </div>
 
+    <div class="section ultimate-souls-section">
+        <div class="input-group ultimate-souls-group">
+            <label for="ultimate-souls" class="ultimate-label">Numbers of Ultimate Souls</label>
+            <input type="number" id="ultimate-souls" min="0" max="6" class="ultimate-input">
+        </div>
+    </div>
+    
     <button class="collapsible">All Gauge Increase</button>
     <div class="content">
-        <div class="input-group" id="ultimate-souls-group">
-            <label for="ultimate-souls">Numbers of Ultimate Souls</label>
-            <input type="number" id="ultimate-souls" min="0">
-        </div>
         <div class="input-group">
             <label for="orange-gauge">Orange Soul's All Gauge Increase (%)</label>
             <input type="number" id="orange-gauge" min="0">

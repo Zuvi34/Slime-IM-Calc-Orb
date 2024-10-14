@@ -343,6 +343,11 @@
                          unit2Orange + unit2Blue + unit2Green + unit2Unity +
                          unit3Orange + unit3Blue + unit3Green + unit3Unity + ultimateSouls;
 
+        if (comboCount > 6) {
+            alert("Warning: Souls Number can't be higher than 6!");
+            return; // Stoppt die Berechnungen, falls der Wert zu hoch ist
+        }
+
         // Beispiel für Bonus-Lookup (dies kann beliebig angepasst werden)
         let comboBonusTable = [
             { combo: 0, bonus: 0 },

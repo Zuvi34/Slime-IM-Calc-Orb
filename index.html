@@ -3,168 +3,412 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orb Counter</title>
+    <title>Skill Points Calculator</title>
     <style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: #FFFFFF;
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-top: 20px; /* This is added so that there's a bit of space at the top of the page */
-}
+        * {
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
 
         .container {
-    margin-top: 120px;  /* Adjust this value accordingly if the content in .header-label changes or if there are changes in the styling that would affect its height */
-    text-align: center;
-}
-
-
-        .input-field, .output-field {
-            margin: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        input[type="number"] {
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .collapsible {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .collapsible.active, .collapsible:hover {
+            background-color: #218838;
+        }
+
+        .content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        .content.active {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Fügt vertikale Zentrierung hinzu */
+            margin-bottom: 10px;
+        }
+
+        .input-group input {
             width: 60px;
-            background-color: #333;
-            color: #fff;
-            border: 1px solid #555;
             padding: 5px;
-            text-align: center;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 30px; /* Füge eine feste Höhe hinzu, um sie höher zu machen */
         }
 
-        .last-input {
-    margin-bottom: 50px; /* Oder welchen Abstand Sie bevorzugen */
-}
+        @media (max-width: 768px) {
+            .input-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
 
-
-        .output {
-            background-color: #444;
-            padding: 5px 10px;
-            border: 1px solid #555;
-            display: inline-block;
-            width: 60px;
-            text-align: center;
+            .input-group input {
+                width: 100%;
+                margin-top: 5px;
+            }
         }
 
-        label {
-            display: inline-block; /* Diese Änderung stellt sicher, dass das Label neben dem Eingabefeld angezeigt wird */
-            margin-right: 10px;
-            vertical-align: middle; /* Stellt sicher, dass das Label vertikal mit dem Eingabefeld zentriert ist */
-            width: 180px;
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
         }
 
-        .header-label {
-    text-align: center;
-    font-size: inherit;
-    font-weight: normal;
-    padding: 10px 0;
-    width: 100%;
-}
-
-
-
+        button:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
-    <div class="header-label">
-        Created by @amarillodorado (Aurora). The Skill Point calculation should be to 100% accurate. <br>
-        For the Blue Orbs be aware that if it is not an Integer it could be either the lower or the upper Integer number (e.g. 27.4 could be 27 or 28).
-        <br><br>
-        Skill Points have a natural cap of 100.<br>
-        Blue Points have a cap of 60 (120).
-    </div>
-    
+
 <div class="container">
-    <div class="input-field">
-        <label for="green-orbs">Amount of Green Orbs: </label>
-        <input type="number" id="green-orbs" min="0" max="6" value = "0">
-    </div>
-    <div class="input-field">
-        <label for="blue-orbs">Amount of Blue Orbs: </label>
-        <input type="number" id="blue-orbs" min="0" max="6" value ="0">
-    </div>
-    <div class="input-field">
-        <label for="orange-orbs">Amount of Orange Orbs: </label>
-        <input type="number" id="orange-orbs" min="0" max="6" value = "0">
+    <h2>Skill Points Calculator</h2>
+
+    <button class="collapsible active">Unit 1</button>
+    <div class="content" style="max-height: 300px;">
+        <div class="input-group">
+            <label for="unit1-orange">Numbers of Orange Souls</label>
+            <input type="number" id="unit1-orange" min="0">
+        </div>
+        <div class="input-group">
+            <label for="unit1-green">Numbers of Green Souls</label>
+            <input type="number" id="unit1-green" min="0">
+        </div>
+        <div class="input-group">
+            <label for="unit1-blue">Numbers of Blue Souls</label>
+            <input type="number" id="unit1-blue" min="0">
+        </div>
+        <div class="input-group">
+            <label for="unit1-unity">Numbers of Unity Souls</label>
+            <input type="number" id="unit1-unity" min="0">
+        </div>
     </div>
 
-    <div class="input-field last-input">
+    <button class="collapsible">Unit 2</button>
+    <div class="content">
+        <div class="input-group">
+            <label for="unit2-orange">Numbers of Orange Souls</label>
+            <input type="number" id="unit2-orange" min="0">
+        </div>
+        <div class="input-group">
+            <label for="unit2-green">Numbers of Green Souls</label>
+            <input type="number" id="unit2-green" min="0">
+        </div>
+        <div class="input-group">
+            <label for="unit2-blue">Numbers of Blue Souls</label>
+            <input type="number" id="unit2-blue" min="0">
+        </div>
+        <div class="input-group">
+            <label for="unit2-unity">Numbers of Unity Souls</label>
+            <input type="number" id="unit2-unity" min="0">
+        </div>
     </div>
 
-    <div class="output-field">
-        <label>Output Green Points: </label>
-        <span class="output" id="output-green">0</span>
+    <button class="collapsible">Unit 3</button>
+    <div class="content">
+        <div class="input-group">
+            <label for="unit3-orange">Numbers of Orange Souls</label>
+            <input type="number" id="unit3-orange" min="0">
+        </div>
+        <div class="input-group">
+            <label for="unit3-green">Numbers of Green Souls</label>
+            <input type="number" id="unit3-green" min="0">
+        </div>
+        <div class="input-group">
+            <label for="unit3-blue">Numbers of Blue Souls</label>
+            <input type="number" id="unit3-blue" min="0">
+        </div>
+        <div class="input-group">
+            <label for="unit3-unity">Numbers of Unity Souls</label>
+            <input type="number" id="unit3-unity" min="0">
+        </div>
     </div>
-    <div class="output-field">
-        <label>Output Blue Gauge: </label>
-        <span class="output" id="output-blue">0</span>
+
+    <button class="collapsible">All Gauge Increase</button>
+    <div class="content">
+        <div class="input-group">
+            <label for="ultimate-souls">Numbers of Ultimate Souls</label>
+            <input type="number" id="ultimate-souls" min="0">
+        </div>
+        <div class="input-group">
+            <label for="orange-gauge">Orange Soul's All Gauge Increase (%)</label>
+            <input type="number" id="orange-gauge" min="0">
+        </div>
+        <div class="input-group">
+            <label for="green-gauge">Green Soul's All Gauge Increase (%)</label>
+            <input type="number" id="green-gauge" min="0">
+        </div>
+        <div class="input-group">
+            <label for="blue-gauge">Blue Soul's All Gauge Increase (%)</label>
+            <input type="number" id="blue-gauge" min="0">
+        </div>
+    </div>
+
+    <button class="collapsible">Secret Skill Gauge Increase</button>
+<div class="content">
+    <div class="input-group">
+        <label for="orange-secret-gauge">Orange Soul's Secret Skill Gauge Increase (%)</label>
+        <input type="number" id="orange-secret-gauge" min="0">
+    </div>
+    <div class="input-group">
+        <label for="green-secret-gauge">Green Soul's Secret Skill Gauge Increase (%)</label>
+        <input type="number" id="green-secret-gauge" min="0">
+    </div>
+    <div class="input-group">
+        <label for="blue-secret-gauge">Blue Soul's Secret Skill Gauge Increase (%)</label>
+        <input type="number" id="blue-secret-gauge" min="0">
+    </div>
+    <div class="input-group">
+        <label for="all-secret-gauge">All Soul's Secret Skill Gauge Increase (%)</label>
+        <input type="number" id="all-secret-gauge" min="0">
     </div>
 </div>
 
+<button class="collapsible">Skill Point Increase</button>
+<div class="content">
+    <div class="input-group">
+        <label for="orange-skill-point">Orange Soul's Skill Point Increase (%)</label>
+        <input type="number" id="orange-skill-point" min="0">
+    </div>
+    <div class="input-group">
+        <label for="green-skill-point">Green Soul's Skill Point Increase (%)</label>
+        <input type="number" id="green-skill-point" min="0">
+    </div>
+    <div class="input-group">
+        <label for="blue-skill-point">Blue Soul's Skill Point Increase (%)</label>
+        <input type="number" id="blue-skill-point" min="0">
+    </div>
+    <div class="input-group">
+        <label for="all-skill-point">All Soul's Skill Point Increase (%)</label>
+        <input type="number" id="all-skill-point" min="0">
+    </div>
+</div>
+
+<button class="collapsible">Protection Gauge Increase</button>
+<div class="content">
+    <div class="input-group">
+        <label for="orange-protection-gauge">Orange Soul's Protection Gauge Increase (%)</label>
+        <input type="number" id="orange-protection-gauge" min="0">
+    </div>
+    <div class="input-group">
+        <label for="green-protection-gauge">Green Soul's Protection Gauge Increase (%)</label>
+        <input type="number" id="green-protection-gauge" min="0">
+    </div>
+    <div class="input-group">
+        <label for="blue-protection-gauge">Blue Soul's Protection Gauge Increase (%)</label>
+        <input type="number" id="blue-protection-gauge" min="0">
+    </div>
+    <div class="input-group">
+        <label for="all-protection-gauge">All Soul's Protection Gauge Increase (%)</label>
+        <input type="number" id="all-protection-gauge" min="0">
+    </div>
+</div>
+
+
+    
+<div style="display: flex; justify-content: space-between; gap: 10px;">
+    <button type="button" id="clear-btn" style="background-color: #dc3545;">Clear</button>
+    <button type="submit">Berechnen</button>
+</div>
+<div id="results" style="margin-top: 20px; padding: 10px; background-color: #f8f9fa; border: 1px solid #ccc; border-radius: 5px;">
+    <h3>Ergebnisse</h3>
+    <p id="unit1-secret-skill">Unit 1 Secret Skill Gauge: -</p>
+    <p id="unit2-secret-skill">Unit 2 Secret Skill Gauge: -</p>
+    <p id="unit3-secret-skill">Unit 3 Secret Skill Gauge: -</p>
+    <p id="skill-points">Skill Points: -</p>
+    <p id="protector-gauge">Protector Gauge Points: -</p>
+</div>
+
+    
+</div>
+
 <script>
-
-    function claculateSkillPoints(green, blue, orange){
-        let amountOrbs = green+blue+orange;
-        if(amountOrbs > 6){
-            return "What are you doing!!!";
-        }
-
-        let SkillPointsGreenOrbsTable = [0, 6,6.5,20/3,7.25,9,12];
-        let SkillPointsBlueOrangeOrbsTable = [0, 4,4.5,14/3,5,6,8];
-        let SkillPointsCalc = green * SkillPointsGreenOrbsTable[amountOrbs] + (orange+blue) * SkillPointsBlueOrangeOrbsTable[amountOrbs];
-        if(SkillPointsCalc == 26.75){
-            return 27;
-        }
-        if(SkillPointsCalc == 24.5){
-            return 24;
-        }
-        if(SkillPointsCalc == 22.25){
-            return 22;
-        }
-        return SkillPointsCalc;
-    }
-
-    function calculateProtectionGauge(green, blue,orange){
-        let amountOrbs = green+blue+orange;
-        if(amountOrbs > 6){
-            return "What are you doing!!!";
-        }
-        let BlueGaugeGreenOrbsTabel = [0, 3, 3.5, 10/3, 3.75,4.6,6];
-        let BlueGaugeBlueOrbsTabel = [0, 6,6.5,20/3,7.25,9,12];
-        let BlueGaugeOrangeOrbsTabel = [0, 2,2.5,7/3,2.5,3,4];
-        let BlueGaugeCalc = green * BlueGaugeGreenOrbsTabel[amountOrbs] + blue * BlueGaugeBlueOrbsTabel[amountOrbs] + orange * BlueGaugeOrangeOrbsTabel[amountOrbs];
-        return parseFloat(BlueGaugeCalc.toFixed(2));
-    }
-
-    document.querySelectorAll('.input-field input').forEach(input => {
-        input.addEventListener('input', function () {
-            let green = 0, blue = 0, orange = 0;
-            green = Number(document.getElementById('green-orbs').value);
-            blue = Number(document.getElementById('blue-orbs').value);
-            orange = Number(document.getElementById('orange-orbs').value);
-
-            let totalOrbs = green + blue + orange;
-        
-        if (totalOrbs > 6) {
-            // Wenn die Gesamtanzahl über 6 liegt, setze den aktuellen Wert zurück
-            input.value = input.value - (totalOrbs - 6);
-            
-            // Aktualisiere die Werte nach der Änderung
-            green = Number(document.getElementById('green-orbs').value);
-            blue = Number(document.getElementById('blue-orbs').value);
-            orange = Number(document.getElementById('orange-orbs').value);
-        }
-
-            document.getElementById('output-green').innerText = claculateSkillPoints(green, blue, orange);
-            document.getElementById('output-blue').innerText = calculateProtectionGauge(green, blue, orange);
+    var collapsibles = document.querySelectorAll(".collapsible");
+    collapsibles.forEach(function(collapsible) {
+        collapsible.addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                content.classList.remove("active");
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                content.classList.add("active");
+            }
         });
     });
 </script>
+
+<script>
+    var clearButton = document.getElementById("clear-btn");
+    clearButton.addEventListener("click", function() {
+        var inputs = document.querySelectorAll("input[type='number']");
+        inputs.forEach(function(input) {
+            input.value = '';
+        });
+    });
+</script>
+
+<script>
+    document.querySelector("button[type='submit']").addEventListener("click", function(event) {
+        event.preventDefault(); // Verhindert das Neuladen der Seite beim Absenden des Formulars
+
+        // Abrufen der Eingabewerte
+        let unit1Orange = parseFloat(document.getElementById("unit1-orange").value) || 0;
+        let unit1Green = parseFloat(document.getElementById("unit1-green").value) || 0;
+        let unit1Blue = parseFloat(document.getElementById("unit1-blue").value) || 0;
+        let unit1Unity = parseFloat(document.getElementById("unit1-unity").value) || 0;
+
+        let unit2Orange = parseFloat(document.getElementById("unit2-orange").value) || 0;
+        let unit2Green = parseFloat(document.getElementById("unit2-green").value) || 0;
+        let unit2Blue = parseFloat(document.getElementById("unit2-blue").value) || 0;
+        let unit2Unity = parseFloat(document.getElementById("unit2-unity").value) || 0;
+
+        let unit3Orange = parseFloat(document.getElementById("unit3-orange").value) || 0;
+        let unit3Green = parseFloat(document.getElementById("unit3-green").value) || 0;
+        let unit3Blue = parseFloat(document.getElementById("unit3-blue").value) || 0;
+        let unit3Unity = parseFloat(document.getElementById("unit3-unity").value) || 0;
+
+        let ultimateSouls = parseFloat(document.getElementById("ultimate-souls").value) || 0;
+
+        let orangeGauge = parseFloat(document.getElementById("orange-gauge").value) || 0;
+        let greenGauge = parseFloat(document.getElementById("green-gauge").value) || 0;
+        let blueGauge = parseFloat(document.getElementById("blue-gauge").value) || 0;
+        let orangeSecretGauge = parseFloat(document.getElementById("orange-secret-gauge").value) || 0;
+        let greenSecretGauge = parseFloat(document.getElementById("green-secret-gauge").value) || 0;
+        let blueSecretGauge = parseFloat(document.getElementById("blue-secret-gauge").value) || 0;
+        let allSecretGauge = parseFloat(document.getElementById("all-secret-gauge").value) || 0;
+
+        let orangeSkillPoint = parseFloat(document.getElementById("orange-skill-point").value) || 0;
+        let greenSkillPoint = parseFloat(document.getElementById("green-skill-point").value) || 0;
+        let blueSkillPoint = parseFloat(document.getElementById("blue-skill-point").value) || 0;
+        let allSkillPoint = parseFloat(document.getElementById("all-skill-point").value) || 0;
+
+        let orangeProtectionGauge = parseFloat(document.getElementById("orange-protection-gauge").value) || 0;
+        let greenProtectionGauge = parseFloat(document.getElementById("green-protection-gauge").value) || 0;
+        let blueProtectionGauge = parseFloat(document.getElementById("blue-protection-gauge").value) || 0;
+        let allProtectionGauge = parseFloat(document.getElementById("all-protection-gauge").value) || 0;
+
+        // Berechnungen
+        let comboCount = unit1Orange + unit1Blue + unit1Green + unit1Unity +
+                         unit2Orange + unit2Blue + unit2Green + unit2Unity +
+                         unit3Orange + unit3Blue + unit3Green + unit3Unity + ultimateSouls;
+
+        // Beispiel für Bonus-Lookup (dies kann beliebig angepasst werden)
+        let comboBonusTable = [
+            { combo: 0, bonus: 0 },
+            { combo: 1, bonus: 1 },
+            { combo: 2, bonus: 1.05 },
+            { combo: 3, bonus: 1.1 },
+            { combo: 4, bonus: 1.2 },
+            { combo: 5, bonus: 1.5 },
+            { combo: 6, bonus: 2 }
+        ];
+
+        let bonusEntry = comboBonusTable.find(entry => entry.combo === comboCount);
+        let bonus = bonusEntry ? bonusEntry.bonus : 1;
+
+        // Hier kommen die abgeleiteten Formeln aus der vorherigen Nachricht:
+        let unit1SecretSkillGauge = Math.ceil(
+    (
+        (6 * unit1Orange * (1 + 0.01 * (orangeGauge + orangeSecretGauge + allSecretGauge))) +
+        (6 * unit1Unity * (1 + 0.01 * (orangeGauge + greenGauge + blueGauge + orangeSecretGauge + greenSecretGauge + blueSecretGauge + allSecretGauge))) +
+        (3 * unit1Green * (1 + 0.01 * (greenGauge + greenSecretGauge + allSecretGauge))) +
+        (2 * unit1Blue * (1 + 0.01 * (blueGauge + blueSecretGauge + allSecretGauge)))
+    ) * bonus
+);  // Füge die bereits erstellte Formel für Unit 1 ein
+        let unit2SecretSkillGauge = Math.ceil(
+    (
+        (6 * unit2Orange * (1 + 0.01 * (orangeGauge + orangeSecretGauge + allSecretGauge))) +
+        (6 * unit2Unity * (1 + 0.01 * (orangeGauge + greenGauge + blueGauge + orangeSecretGauge + greenSecretGauge + blueSecretGauge + allSecretGauge))) +
+        (3 * unit2Green * (1 + 0.01 * (greenGauge + greenSecretGauge + allSecretGauge))) +
+        (2 * unit2Blue * (1 + 0.01 * (blueGauge + blueSecretGauge + allSecretGauge)))
+    ) * bonus
+);  // Formel für Unit 2
+        let unit3SecretSkillGauge = Math.ceil(
+    (
+        (6 * unit3Orange * (1 + 0.01 * (orangeGauge + orangeSecretGauge + allSecretGauge))) +
+        (6 * unit3Unity * (1 + 0.01 * (orangeGauge + greenGauge + blueGauge + orangeSecretGauge + greenSecretGauge + blueSecretGauge + allSecretGauge))) +
+        (3 * unit3Green * (1 + 0.01 * (greenGauge + greenSecretGauge + allSecretGauge))) +
+        (2 * unit3Blue * (1 + 0.01 * (blueGauge + blueSecretGauge + allSecretGauge)))
+    ) * bonus
+);  // Formel für Unit 3
+        let skillPoints = Math.ceil(
+    (
+        (4 * (unit1Orange + unit2Orange + unit3Orange) * (1 + 0.01 * (orangeGauge + orangeSkillPoint + allSkillPoint))) +
+        (6 * (unit1Green + unit2Green + unit3Green) * (1 + 0.01 * (greenGauge + greenSkillPoint + allSkillPoint))) +
+        (6 * (unit1Unity + unit2Unity + unit3Unity) * (1 + 0.01 * (orangeGauge + greenGauge + blueGauge + orangeSkillPoint + greenSkillPoint + blueSkillPoint + allSkillPoint))) +
+        (4 * (unit1Blue + unit2Blue + unit3Blue) * (1 + 0.01 * (blueGauge + blueSkillPoint + allSkillPoint)))
+    ) * bonus
+);            // Formel für Skill Points
+        let protectorGaugePoints = Math.ceil(
+    (
+        (2 * (unit1Orange + unit2Orange + unit3Orange) * (1 + 0.01 * (orangeGauge + orangeProtectionGauge + allProtectionGauge))) +
+        (3 * (unit1Green + unit2Green + unit3Green) * (1 + 0.01 * (greenGauge+greenProtectionGauge + allProtectionGauge))) +
+        (6 * (unit1Blue + unit2Blue + unit3Blue) * (1 + 0.01 * (blueGauge+blueProtectionGauge + allProtectionGauge))) +
+        (6 * (unit1Unity + unit2Unity + unit3Unity) * (1 + 0.01 * (orangeGauge + greenGauge + blueGauge + orangeProtectionGauge + greenProtectionGauge + blueProtectionGauge + allProtectionGauge)))
+    ) * bonus
+);   // Formel für Protector Gauge
+
+               // Ergebnisse anzeigen
+               document.getElementById("unit1-secret-skill").innerText = "Unit 1 Secret Skill Gauge: " + unit1SecretSkillGauge;
+        document.getElementById("unit2-secret-skill").innerText = "Unit 2 Secret Skill Gauge: " + unit2SecretSkillGauge;
+        document.getElementById("unit3-secret-skill").innerText = "Unit 3 Secret Skill Gauge: " + unit3SecretSkillGauge;
+        document.getElementById("skill-points").innerText = "Skill Points: " + skillPoints;
+        document.getElementById("protector-gauge").innerText = "Protector Gauge Points: " + protectorGaugePoints;
+    });
+</script>
+
+
+
 </body>
 </html>
